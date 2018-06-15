@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Line</title>
+  <style>
+    #canvas {
+      border: 1px solid #aaaaaa;
+      display: block;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="canvas-wrap">
+    <canvas id="canvas" width="800" height="600">
+      你的浏览器居然不支持Canvas？！赶快换一个吧！！
+    </canvas>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const canvas = document.getElementById('canvas')
+      const context = canvas.getContext('2d')
+
+      context.rect(200, 100, 400, 400)
+
+      // 创建渐变线
+      const grd = context.createLinearGradient(200, 300, 600, 300)
+
+      //添加颜色断点
+      grd.addColorStop(0, 'black')
+      grd.addColorStop(0.5, 'white')
+      grd.addColorStop(1, 'black')
+
+      //应用渐变
+      context.fillStyle = grd;
+
+      context.fill();
+    }
+  </script>
+</body>
+
+</html>

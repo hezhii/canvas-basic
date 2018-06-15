@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Line</title>
+  <style>
+    #canvas {
+      border: 1px solid #aaaaaa;
+      display: block;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="canvas-wrap">
+    <canvas id="canvas" width="800" height="600">
+      你的浏览器居然不支持Canvas？！赶快换一个吧！！
+    </canvas>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const canvas = document.getElementById('canvas')
+      const context = canvas.getContext('2d')
+
+      // context.moveTo(100, 100) # 移动画笔到指定坐标
+      // context.lineTo(600, 600) # 从上一笔的停止点绘制到指定坐标
+
+      // 绘制折线
+      // context.moveTo(100, 100)
+      // context.lineTo(300, 300)
+      // context.lineTo(100, 500)
+
+       context.lineWidth = 50
+
+      /*
+       * 执行下一次绘制时，只绘制 beginPath() 之后的内容
+       */
+      context.beginPath()
+      context.moveTo(100, 100)
+      context.lineTo(300, 300)
+      context.lineTo(100, 500)
+      context.strokeStyle = 'red'
+      context.lineCap = 'butt' // 定义了线条的端点：端点是垂直于线段边缘的平直边缘
+      context.lineJoin = 'miter' // 定义两条线相交产生的拐角：默认值，在连接处边缘延长相接。miterLimit 是角长和线宽所允许的最大比例(默认是 10)。
+      context.stroke()
+
+      context.beginPath()
+      context.moveTo(300, 100)
+      context.lineTo(500, 300)
+      context.lineTo(300, 500)
+      context.strokeStyle = 'blue'
+      context.lineCap = 'round' // 端点是在线段边缘处以线宽为直径的半圆
+      context.lineJoin = 'bevel' // 连接处是一个对角线斜角
+      context.stroke()
+
+      context.beginPath()
+      context.moveTo(500, 100)
+      context.lineTo(700, 300)
+      context.lineTo(500, 500)
+      context.strokeStyle = 'black'
+      context.lineCap = 'square' // 端点是在线段边缘处以线宽为长、以一半线宽为宽的矩形
+      context.lineJoin = 'round' // 连接处是一个圆
+      context.stroke()
+
+      context.lineWidth = 5
+      context.strokeStyle = '#AA394C'
+      context.stroke()
+    }
+  </script>
+</body>
+
+</html>

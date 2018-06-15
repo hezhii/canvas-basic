@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rectangle</title>
+  <style>
+    #canvas {
+      border: 1px solid #aaaaaa;
+      display: block;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="canvas-wrap">
+    <canvas id="canvas" width="800" height="600">
+      你的浏览器居然不支持Canvas？！赶快换一个吧！！
+    </canvas>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const canvas = document.getElementById('canvas')
+      const context = canvas.getContext('2d')
+
+      // context.beginPath()
+      // context.moveTo(150, 50)
+      // context.lineTo(650, 50)
+      // context.lineTo(650, 550)
+      // context.lineTo(150, 550)
+      // context.lineTo(150, 50) 可以不画，closePath() 会自动闭合
+      // context.closePath()
+
+      // context.lineWidth = 5
+      // context.strokeStyle = 'black'
+      // context.fillStyle = 'yellow'
+      // context.stroke()
+      // context.fill()
+
+      // drawRect(context, 150, 50, 50, 50, 'red', 5, 'blue')
+      // drawRect(context, 250, 50, 50, 50, 'green', 5, 'red')
+      // drawRect(context, 350, 50, 50, 50, 'yellow', 5, 'black')
+
+      drawRect(context, 0, 0, 800, 600, 'rgb(216,216,216)')
+      drawRect(context, 200, 100, 400, 400, 'white', 1, 'white')
+
+      for (let i = 1; i < 20; i++) {
+        drawRect(context, 200 + 10 * i, 100 + 10 * i, 400 - 20 * i, 400 - 20 * i, 'white', 10, 'black')
+      }
+
+      drawRect(context, 397, 297, 5, 5, 'black', 5)
+    }
+
+    function drawRect(cxt, x, y, width, height, fillColor, borderWidth, borderColor) {
+      cxt.beginPath()
+      // cxt.moveTo(x, y)
+      // cxt.lineTo(x + width, y)
+      // cxt.lineTo(x + width, y + height)
+      // cxt.lineTo(x, y + height)
+      // cxt.closePath()
+
+      // Canvas API中已经帮我们封装好了一个绘制矩形的方法——rect()
+      cxt.rect(x, y, width, height)
+
+      cxt.lineWidth = borderWidth
+      cxt.strokeStyle = borderColor
+      cxt.fillStyle = fillColor
+
+      cxt.stroke()
+      cxt.fill()
+    }
+  </script>
+</body>
+
+</html>
