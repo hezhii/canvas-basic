@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>LinearGradient</title>
+  <title>RadialGradient</title>
   <style>
     #canvas {
       border: 1px solid #aaaaaa;
@@ -27,22 +27,8 @@
       const canvas = document.getElementById('canvas')
       const context = canvas.getContext('2d')
 
-      // context.rect(200, 100, 400, 400)
-
-      // 创建渐变线
-      // const grd = context.createLinearGradient(200, 300, 600, 300)
-
-      //添加颜色断点
-      // grd.addColorStop(0, 'black')
-      // grd.addColorStop(0.5, 'white')
-      // grd.addColorStop(1, 'black')
-
-      //应用渐变
-      // context.fillStyle = grd;
-
-      // context.fill();
-
-      const grd = context.createLinearGradient(100, 300, 700, 300);
+      //添加渐变线
+      const grd = context.createRadialGradient(400, 300, 100, 400, 300, 200);
 
       //添加颜色断点
       grd.addColorStop(0, "olive");
@@ -53,17 +39,8 @@
 
       //应用渐变
       context.fillStyle = grd;
-      context.strokeStyle = grd;
 
-      context.strokeRect(200, 50, 300, 50);
-      context.strokeRect(200, 100, 150, 50);
-      context.strokeRect(200, 150, 450, 50);
-
-      context.fillRect(200, 300, 300, 50);
-      context.fillRect(200, 350, 150, 50);
-      context.fillRect(200, 400, 450, 50);
-
-      context.fillRect(0, 550, 800, 25);
+      context.fillRect(100, 100, 600, 400);
     }
   </script>
 </body>

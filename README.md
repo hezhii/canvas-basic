@@ -70,3 +70,79 @@ lineWidth 定义线的宽度(默认值为 1.0)。
 #### 笔触样式
 
 strokeStyle 定义线和形状边框的颜色和样式。
+
+## 填充
+
+Canvas `fillStyle` 属性用来设置画布上形状的基本颜色和填充。fillStyle使用简单的颜色名称。这看起来非常简单，例如:
+
+```js
+context.fillStyle = "red";
+```
+
+### 渐变填充
+
+在画布上创建渐变填充有两个基本选项：线性或径向。线性渐变创建一个水平、垂直或者对角线的填充图案。径向渐变自中心点创建一个放射状填充。填充渐变形状分为三步：添加渐变线，为渐变线添加关键色，应用渐变。下面是它们的一些示例。
+
+#### 线性渐变
+
+1. 添加渐变线：
+
+```js
+var grd = context.createLinearGradient(xstart,ystart,xend,yend);
+```
+
+渐变线起止点自定了了颜色变化的坐标区间，对应坐标点的图形会应用上对应的颜色。
+
+2. 为渐变线添加关键色(类似于颜色断点)：
+
+```js
+grd.addColorStop(stop,color);
+```
+
+这里的stop传递的是 0 ~ 1 的浮点数，代表断点到(xstart,ystart)的距离占整个渐变色长度是比例。
+
+3. 应用渐变
+
+```js
+context.fillStyle = grd;
+context.strokeStyle = grd;
+```
+
+#### 绘制矩形的快捷方法
+
+`fillRect(x,y,width,height)`、`strokeRect(x,y,width,height)`。这两个函数可以分别看做`rect()`与`fill()`以及`rect()`与`stroke()`的组合。因为rect`()`仅仅只是规划路径而已，而这两个方法确实实实在在的绘制。
+
+### 径向渐变
+
+1. 添加渐变圆：
+
+```js
+var grd = context.createRadialGradient(x0,y0,r0,x1,y1,r1);
+```
+
+2. 为渐变线添加关键色(类似于颜色断点)：
+
+```js
+grd.addColorStop(stop,color);
+```
+
+3. 应用渐变
+
+```js
+context.fillStyle = grd;
+context.strokeStyle = grd;
+```
+
+**线性渐变是基于两个端点定义的，但是径向渐变是基于两个圆定义的。**
+
+### 创建并填充图案
+
+纹理其实就是图案的重复，填充图案通过`createPattern()`函数进行初始化。它需要传进两个参数`createPattern(img,repeat-style)`，第一个是Image对象实例，第二个参数是String类型，表示在形状中如何显示repeat图案。可以使用这个函数加载图像或者整个画布作为形状的填充图案。
+有以下4种图像填充类型：
+
+- 平面上重复：repeat;
+- x轴上重复：repeat-x;
+- y轴上重复：repeat-y;
+- 不使用重复：no-repeat;
+
+其实`createPattern()`的第一个参数还可以传入一个canvas对象或者video对象。
