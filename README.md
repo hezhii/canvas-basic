@@ -146,3 +146,22 @@ context.strokeStyle = grd;
 - 不使用重复：no-repeat;
 
 其实`createPattern()`的第一个参数还可以传入一个canvas对象或者video对象。
+
+## 圆弧
+
+### arc()
+
+`context.arc(x,y,radius,startAngle,endAngle,anticlockwise)`
+
+前面三个参数，分别是圆心坐标与圆半径。startAngle、endAngle使用的是弧度值，不是角度值。弧度的规定是绝对的。anticlockwise表示绘制的方法，是顺时针还是逆时针绘制。它传入布尔值，`true`表示逆时针绘制，`false`表示顺时针绘制，缺省值为`false`。
+
+![](./.github/arc.jpg)
+
+### arcTo()
+
+`arcTo()`方法接收5个参数，分别是两个切点的坐标和圆弧半径。这个方法是依据切线画弧线，即由两个切线确定一条弧线。
+具体如下。
+
+`arcTo(x1,y1,x2,y2,radius)`
+
+这个函数以给定的半径绘制一条弧线，圆弧的起点与当前路径的位置到(x1, y1)点的直线相切，圆弧的终点与(x1, y1)点到(x2, y2)的直线相切。因此其通常配合`moveTo()`或`lineTo()`使用。其能力是可以被更为简单的arc()替代的，其复杂就复杂在绘制方法上使用了切点。
