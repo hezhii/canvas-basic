@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>bezier</title>
+  <style>
+    #canvas {
+      border: 1px solid #aaaaaa;
+      display: block;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="canvas-wrap">
+    <canvas id="canvas" width="800" height="600">
+      你的浏览器居然不支持Canvas？！赶快换一个吧！！
+    </canvas>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const canvas = document.getElementById('canvas')
+      const context = canvas.getContext('2d')
+
+      drawPrairie(context)
+      drawSky(context)
+
+      for (var i = 0; i < 5; i++) {
+        const x0 = 500 * Math.random() + 50;
+        const y0 = 200 * Math.random() + 50;
+        const c0 = 100 * Math.random() + 50;
+        drawCloud(context, x0, y0, c0);
+      }
+    }
+
+    function drawPrairie(ctx) {
+      ctx.beginPath()
+      ctx.moveTo(0, 420)
+      ctx.bezierCurveTo(250, 300, 350, 550, 800, 400)
+      ctx.lineTo(800, 600)
+      ctx.lineTo(0, 600)
+      ctx.closePath()
+
+      const lineStyle = ctx.createLinearGradient(0, 600, 600, 0)
+      lineStyle.addColorStop(0, '#00AA58')
+      lineStyle.addColorStop(0.3, '#63AA7B')
+      lineStyle.addColorStop(1, '#04AA00')
+
+      ctx.fillStyle = lineStyle
+      ctx.fill()
+    }
+
+    function drawSky(ctx) {
+      ctx.beginPath();
+      ctx.moveTo(0, 420);
+      ctx.bezierCurveTo(250, 300, 350, 550, 800, 400);
+      ctx.lineTo(800, 0);
+      ctx.lineTo(0, 0);
+      ctx.closePath();
+
+      const lineStyle = ctx.createRadialGradient(400, 0, 50, 400, 0, 200);
+      lineStyle.addColorStop(0, "#42A9AA");
+      lineStyle.addColorStop(1, "#2491AA");
+
+      ctx.fillStyle = lineStyle;
+
+      ctx.fill();
+    }
+
+    function drawCloud(ctx, cx, cy, cw) {
+      cx = cx % 800;
+      const ch = cw * 0.6;
+
+      ctx.beginPath();
+      ctx.fillStyle = "white";
+      //创建渐变
+      const grd = ctx.createLinearGradient(0, 0, 0, cy);
+      grd.addColorStop(0, 'rgba(255,255,255,0.8)');
+      grd.addColorStop(1, 'rgba(255,255,255,0.5)');
+      ctx.fillStyle = grd;
+
+      //在不同位置创建5个圆拼接成云朵现状
+      ctx.arc(cx, cy, cw * 0.19, 0, 360, false);
+      ctx.arc(cx + cw * 0.08, cy - ch * 0.3, cw * 0.11, 0, 360, false);
+      ctx.arc(cx + cw * 0.3, cy - ch * 0.25, cw * 0.25, 0, 360, false);
+      ctx.arc(cx + cw * 0.6, cy, cw * 0.21, 0, 360, false);
+      ctx.arc(cx + cw * 0.3, cy - ch * 0.1, cw * 0.28, 0, 360, false);
+      ctx.closePath();
+
+      ctx.fill();
+    }
+  </script>
+</body>
+
+</html>

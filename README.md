@@ -165,3 +165,31 @@ context.strokeStyle = grd;
 `arcTo(x1,y1,x2,y2,radius)`
 
 这个函数以给定的半径绘制一条弧线，圆弧的起点与当前路径的位置到(x1, y1)点的直线相切，圆弧的终点与(x1, y1)点到(x2, y2)的直线相切。因此其通常配合`moveTo()`或`lineTo()`使用。其能力是可以被更为简单的arc()替代的，其复杂就复杂在绘制方法上使用了切点。
+
+## 贝赛尔曲线
+
+[参考链接](https://blog.csdn.net/themagickeyjianan/article/details/54861945)
+
+### 二次贝塞尔曲线
+
+在Canvas里，二次贝塞尔曲线的方法如下。
+
+```js
+context.quadraticCurveTo(cpx,cpy,x,y);
+```
+
+起点为当前画笔的坐标，(cpx,cpy) 为控制点，(x,y) 为终止点。
+
+[(在线)二次贝塞尔曲线）](http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html)
+
+### 三次贝塞尔曲线
+
+绘制三次贝塞尔曲线代码如下。
+
+```js
+context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);
+```
+
+根据之前的结论，n阶贝塞尔曲线就有n-1个控制点，所以三次贝塞尔曲线有1个起始点、1个终止点、2个控制点。因此传入的6个参数分别为控制点cp1 (cp1x, cp1y)，控制点cp2 (cp2x, cp2y)，与终止点 (x, y)。
+
+[(在线)三次贝塞尔曲线](http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html)
