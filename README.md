@@ -193,3 +193,13 @@ context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);
 根据之前的结论，n阶贝塞尔曲线就有n-1个控制点，所以三次贝塞尔曲线有1个起始点、1个终止点、2个控制点。因此传入的6个参数分别为控制点cp1 (cp1x, cp1y)，控制点cp2 (cp2x, cp2y)，与终止点 (x, y)。
 
 [(在线)三次贝塞尔曲线](http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html)
+
+## 图形转换
+
+### 平移
+
+`context.translate(100,100)`
+
+两个参数是画布平移后，在新画布上的坐标。平移相当于是移动画布。
+
+**如果连续进行平移，效果会累加**。因此在每次绘制前使用 `context.save()` 保存当前状态，绘制后使用`context.restore()`。
