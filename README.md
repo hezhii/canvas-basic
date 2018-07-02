@@ -203,3 +203,9 @@ context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);
 两个参数是画布平移后，在新画布上的坐标。平移相当于是移动画布。
 
 **如果连续进行平移，效果会累加**。因此在每次绘制前使用 `context.save()` 保存当前状态，绘制后使用`context.restore()`。
+
+### 旋转
+
+`context.rotate(x)` 
+
+其中 x 为旋转的弧度，这个的旋转是以坐标系的原点（0，0）为圆心进行的顺时针旋转。所以，在使用rotate()之前，通常需要配合使用translate()平移坐标系。
