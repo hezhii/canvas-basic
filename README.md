@@ -239,3 +239,70 @@ context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);
 连续调用 `transform` 结果会叠加，例如：如果我们已经将绘图设置为放到两倍，则 transform() 方法会把绘图放大两倍，那么我们的绘图最终将放大四倍。
 
 使用 `context.setTransform(a,b,c,d,e,f)` 则不会。
+
+## 文本
+
+API:
+
+|属性|描述|
+|:--------:|:--------|
+|font|设置或返回文本内容的当前字体属性|
+|textAlign|设置或返回文本内容的当前对齐方式|
+|textBaseline|设置或返回在绘制文本时使用的当前文本基线|
+
+|方法|描述|
+|:--------:|:--------|
+|fillText()|在画布上绘制“被填充的”文本|
+|strokeText()|在画布上绘制文本（无填充）|
+|measureText()|返回包含指定文本宽度的对象|
+
+### 设置文本字体
+
+`context.font = "[font-style] [font-variant] [font-weight] [font-size/line-height] [font-family]"`
+
+基本与 CSS 一直，其中 `font-variant` 属性设置字母的显示方式，`normal`：默认值。浏览器显示一个标准的字体样式；`small-caps`：浏览器会显示小号大写字母的字体。
+
+### 文本渲染
+
+`fillText()` 与 `strokeText()` 的参数表是一样的，接受4个参数，分别是String，x，y与maxlen，其中String是指要显示的字符串，之后x与y是指显示的坐标，最后一个maxlen是可以缺省的数值型参数，代表显示的最大宽度，单位是像素。如果文本的长度超过了这个maxlen，Canvas就会将显示文本横向压缩。
+
+### 文本对齐
+
+#### 水平对齐
+
+`context.textAlign="center|end|left|right|start";`
+
+各值的含义如下：
+
+|值|描述|
+|:--------:|:--------|
+|start|默认。文本在指定的位置开始|
+|end|文本在指定的位置结束|
+|center|文本的中心被放置在指定的位置|
+|left|文本左对齐|
+|right|文本右对齐|
+
+#### 垂直对齐
+
+`context.textBaseline="alphabetic|top|hanging|middle|ideographic|bottom";`
+
+各值的含义如下：
+
+|值|描述|
+|:--------:|:--------|
+|alphabetic|默认。文本基线是普通的字母基线|
+|top|文本基线是 em 方框的顶端|
+|hanging|文本基线是悬挂基线|
+|middle|文本基线是 em 方框的正中|
+|ideographic|文本基线是表意基线|
+|bottom|文本基线是 em 方框的底端|
+
+各基线代表的位置如下图。
+
+![]('./.github/font.gif')
+
+### 文本测量
+
+`context.measureText(text)`
+
+获取要渲染的指定文本在渲染后的宽高

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>font</title>
+  <style>
+    #canvas {
+      border: 1px solid #aaaaaa;
+      display: block;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="canvas-wrap">
+    <canvas id="canvas" width="800" height="600">
+      你的浏览器居然不支持Canvas？！赶快换一个吧！！
+    </canvas>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const canvas = document.getElementById('canvas')
+      const context = canvas.getContext('2d')
+
+      //1. 使用`font`设置字体。
+      // context.font = '50px serif'
+      //2. 使用`fillStyle`设置字体颜色。
+      // context.fillStyle = '#00AAAA'
+      //3. 使用`fillText()`方法显示字体。
+      // context.fillText('Canvas font', 30, 100)
+
+      context.fillStyle = "#FFF"
+      context.fillRect(0, 0, 800, 600)
+
+      context.beginPath()
+      context.font = "50px Verdana";
+      const gradient = context.createLinearGradient(0, 0, 800, 0);
+      gradient.addColorStop("0", "magenta");
+      gradient.addColorStop("0.5", "blue");
+      gradient.addColorStop("1.0", "red");
+      context.fillStyle = gradient;
+      context.strokeStyle = "#00AAAA";
+      context.strokeText("strokeText", 50, 100);
+      context.fillText("fillText", 50, 200);
+
+      //限制宽度
+      context.fillText("fillText", 50, 300, 100);
+
+      context.beginPath();
+      const img = new Image();
+      img.src = "./imgs/leaf.jpg";
+      img.onload = function () {
+        const pattern = context.createPattern(img, "repeat");
+        context.fillStyle = pattern;
+        context.fillText("fillText", 50, 400);
+      }
+    }
+  </script>
+</body>
+
+</html>
