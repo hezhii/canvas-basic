@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>路径动画</title>
+</head>
+<body>
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    background: #000;
+  }
+
+  #canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<canvas id="canvas"></canvas>
+<script>
+  const radiuSpeed = 2
+  const circleSpeed = 5
+  const speedBase = Math.PI / 150
+
+  const cycleR = Math.round(2 * Math.PI / (radiuSpeed * speedBase))
+  const cycleC = Math.round(2 * Math.PI / (circleSpeed * speedBase))
+  const LCM = lcm(cycleC, cycleR)
+
+  const radiusBase = 100
+
+  const canvas = document.getElementById('canvas')
+  const ctx = canvas.getContext('2d')
+
+  let midX
+  let midY
+
+  let radius = 0
+  let circleAngle = 0
+  let radiusAngle = 0
+
+  let points = []
+  let pointStartX
+  let pointStartY
+
+  let rafId
+  let count = 0
+
+  const clearStage = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  }
+
+  const setStage = () => {
+    const winWidth = window.innerWidth
+    const winHeight = window.innerHeight
+
+    midX = winWidth * 0.5
+    midY = winHeight * 0.5
+
+    canvas.width = winWidth
+    canvas.height = winHeight
+
+    radius = 0
+    circleAngle = 0
+    radiusAngle = 0
+
+    points = []
+
+    pointStartX = midX + Math.cos(circleAngle) * radius
+    pointStartY = midY + Math.sin(circleAngle) * radius
+
+    updatePath()
+  }
+
+  const updatePath = () => {
+    radius = Math.cos(radiusAngle) * radiusBase
+    const x = midX + Math.cos(circleAngle) * radius
+    const y = midY + Math.sin(circleAngle) * radius
+    points.push({x, y})
+    radiusAngle += speedBase * radiuSpeed
+    circleAngle += speedBase * circleSpeed
+  }
+
+  const draw = () => {
+    clearStage()
+
+    updatePath()
+
+    ctx.beginPath()
+    ctx.strokeStyle = '#fff'
+    ctx.moveTo(points[0].x, points[0].y)
+
+    let point
+
+    for (let i = 1; i < points.length; i++) {
+      point = points[i]
+
+      ctx.lineTo(point.x, point.y)
+    }
+
+    ctx.stroke()
+
+    if (++count === LCM) {
+      cancelAnimationFrame(rafId)
+    } else {
+      rafId = requestAnimationFrame(draw)
+    }
+  }
+
+  // 求最大公约数
+  function gcd (m, n) {
+    if (m < n) {
+      const t = n
+      n = m
+      m = t
+    }
+    if (m % n === 0) {
+      return n
+    }
+    return gcd(n, m % n)
+  }
+
+  // 最小公倍数
+  function lcm (m, n) {
+    return m * n / gcd(m, n)
+  }
+
+  setStage()
+  draw()
+</script>
+</body>
+</html>
